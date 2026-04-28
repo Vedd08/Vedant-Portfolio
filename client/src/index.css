@@ -1,0 +1,8 @@
+@import "./styles/variables.css";
+
+body {
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Segoe UI', sans-serif;
+}

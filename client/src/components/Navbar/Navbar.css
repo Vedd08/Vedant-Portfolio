@@ -1,0 +1,355 @@
+@import '../../styles/variables.css';
+
+/* ===== Premium Navbar Container ===== */
+.premium-navbar {
+  background: rgba(253, 251, 247, 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  padding: 1rem 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-bottom: 1px solid transparent;
+  opacity: 0; /* Hidden until GSAP animation */
+}
+
+/* Scrolled state - subtle shadow and border */
+.premium-navbar.scrolled {
+  background: rgba(253, 251, 247, 0.92);
+  box-shadow: 0 4px 20px rgba(42, 54, 59, 0.04);
+  border-bottom: 1px solid rgba(200, 180, 150, 0.08);
+  padding: 0.7rem 0;
+}
+
+/* ===== Brand Styling ===== */
+.navbar-brand-custom {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  padding: 0;
+  margin-right: 2rem;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  color: var(--primary) !important;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand-custom:hover {
+  transform: translateY(-1px);
+}
+
+.brand-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-blue) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 450;
+}
+
+.brand-dot {
+  color: var(--accent-gold);
+  font-size: 2rem;
+  margin-left: 2px;
+  -webkit-text-fill-color: var(--accent-gold);
+  animation: softPulse 3s infinite;
+}
+
+@keyframes softPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* ===== Custom Toggler (Hamburger) ===== */
+.custom-toggler {
+  border: none !important;
+  padding: 8px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.custom-toggler:focus {
+  box-shadow: none !important;
+}
+
+.hamburger-icon {
+  width: 24px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
+}
+
+.hamburger-icon.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-icon.active span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.hamburger-icon.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ===== Navigation Links ===== */
+.nav-link-custom {
+  position: relative;
+  padding: 0.5rem 1.2rem !important;
+  margin: 0 0.2rem;
+  font-size: 1rem;
+  font-weight: 450;
+  color: var(--text-main) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+}
+
+.link-text {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect - slight upward movement */
+.nav-link-custom:hover .link-text {
+  transform: translateY(-2px);
+  color: var(--accent-blue);
+}
+
+/* Active link indicator */
+.link-underline {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold));
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(-50%);
+}
+
+.nav-link-custom:hover .link-underline {
+  width: 60%;
+}
+
+.nav-link-custom.active .link-underline {
+  width: 80%;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-blue));
+}
+
+.nav-link-custom.active .link-text {
+  color: var(--accent-blue);
+  font-weight: 500;
+}
+
+/* ===== Resume Button ===== */
+.resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  border: 1.5px solid var(--border-light);
+  border-radius: 50px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(5px);
+}
+
+.resume-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -8px rgba(44, 62, 80, 0.2);
+}
+
+.resume-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.resume-btn:hover svg {
+  transform: translateY(2px);
+  stroke: white;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 991.98px) {
+  .premium-navbar {
+    padding: 0.5rem 0;
+  }
+  
+  .navbar-collapse {
+    background: rgba(253, 251, 247, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 20px 40px -10px rgba(42, 54, 59, 0.1);
+    border: 1px solid rgba(200, 180, 150, 0.1);
+  }
+  
+  .nav-link-custom {
+    padding: 0.8rem 1.5rem !important;
+    margin: 0.2rem 0;
+    text-align: center;
+  }
+  
+  .link-underline {
+    display: none;
+  }
+  
+  .nav-link-custom.active {
+    background: linear-gradient(90deg, 
+      rgba(91, 138, 154, 0.05) 0%, 
+      transparent 100%);
+    border-radius: 8px;
+  }
+  
+  .nav-link-custom.active .link-text {
+    color: var(--accent-blue);
+  }
+  
+  .resume-btn {
+    margin-top: 1rem;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* Mobile menu animation */
+  .navbar-collapse {
+    animation: slideDown 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-brand-custom {
+    font-size: 1.5rem;
+  }
+  
+  .brand-dot {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-fluid {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* ===== Accessibility & Performance ===== */
+@media (prefers-reduced-motion: reduce) {
+  .premium-navbar,
+  .navbar-brand-custom,
+  .nav-link-custom,
+  .link-underline,
+  .hamburger-icon span,
+  .resume-btn {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .brand-dot {
+    animation: none;
+  }
+}
+
+/* ===== Bootstrap Overrides ===== */
+.navbar {
+  --bs-navbar-padding-y: 0;
+  --bs-navbar-padding-x: 0;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* Smooth hover for all interactive elements */
+.nav-link-custom,
+.resume-btn,
+.navbar-brand-custom {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Add to src/components/Navbar/Navbar.css */
+
+/* ===== Social Links ===== */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-light);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+}
+
+.social-link:hover {
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -6px rgba(91, 138, 154, 0.15);
+}
+
+.social-link svg {
+  transition: transform 0.3s ease;
+}
+
+.social-link:hover svg {
+  transform: scale(1.1);
+}
+
+/* Mobile responsive for social links */
+@media (max-width: 991.98px) {
+  .social-link {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Add smooth scrolling offset for anchor links */
+html {
+  scroll-padding-top: 80px;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,27 @@
+:root {
+  /* User Custom Palette (Onyx & Cadet Blue) - Professional Tuning */
+  --bg-main: #FDFDFF;
+  --bg-secondary: #F4F4F6; /* Very subtle off-white for section contrast */
+  
+  --primary: #393D3F;        /* Dark Onyx - High contrast for headings */
+  --secondary: #546A7B;      /* Payne's Gray - Sophisticated subtext */
+  
+  /* Eye-Catching Accents */
+  --accent-blue: #62929E;    /* Cadet Blue - Primary attention grabber (Buttons, Links) */
+  --accent-gold: #546A7B;    /* Payne's Gray - Used with Cadet Blue for rich, deep oceanic gradients */
+  --accent-green: #393D3F;   /* Dark Onyx - For sharp, bold contrast markers */
+  
+  --text-main: #393D3F;
+  --text-secondary: #546A7B;
+  --text-light: rgba(84, 106, 123, 0.7); /* Payne's Gray with opacity for readable light text */
+  
+  /* Deep, Professional Shadows */
+  --border-light: rgba(198, 197, 185, 0.4); /* Ash Gray used elegantly for subtle borders */
+  --shadow-soft: 0 15px 35px -5px rgba(57, 61, 63, 0.08);
+  --shadow-hover: 0 25px 40px -8px rgba(98, 146, 158, 0.25); /* Cadet Blue tinted shadow for interactive elements */
+  
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
