@@ -17,8 +17,8 @@ const app = express();
 
 app.use(cors({
   origin: [
-    process.env.CLIENT_URL || 'http://localhost:5173',
-    process.env.ADMIN_URL || 'http://localhost:5174'
+    process.env.CLIENT_URL || 'https://vedant-portfolio-rust-two.vercel.app/',
+    process.env.ADMIN_URL || 'https://vedant-portfolio-jbti.vercel.app/'
   ],
   credentials: true
 }));
@@ -39,4 +39,5 @@ app.get("/", (req, res) => {
   res.send("API Running...");
 });
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
