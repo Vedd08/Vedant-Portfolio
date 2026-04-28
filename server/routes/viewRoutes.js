@@ -1,6 +1,6 @@
 import express from "express";
 import { trackView, getStats, addTestView, clearViews } from "../controllers/viewController.js";
-import { protect } from "../middleware/authMIddleware.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
