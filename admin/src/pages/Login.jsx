@@ -155,7 +155,7 @@ const Login = () => {
               </Form>
 
               <div className="login-footer">
-                <a href="http://localhost:5173" className="back-link">
+                <a href={import.meta.env.VITE_CLIENT_URL || 'https://vedant-portfolio-rust-two.vercel.app'} className="back-link">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M19 12H5M12 19l-7-7 7-7" />
                   </svg>

@@ -17,8 +17,8 @@ const app = express();
 
 app.use(cors({
   origin: [
-    process.env.CLIENT_URL || 'https://vedant-portfolio-rust-two.vercel.app/',
-    process.env.ADMIN_URL || 'https://vedant-portfolio-jbti.vercel.app/'
+    process.env.CLIENT_URL || 'https://vedant-portfolio-rust-two.vercel.app',
+    process.env.ADMIN_URL || 'https://vedant-portfolio-jbti.vercel.app'
   ],
   credentials: true
 }));
