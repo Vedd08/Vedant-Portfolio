@@ -19,7 +19,7 @@ const certificateSchema = new mongoose.Schema({
   },
   credentialUrl: {
     type: String,
-    required: false,
+    // required: false,
   }
 }, { timestamps: true });
 
