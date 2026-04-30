@@ -19,11 +19,24 @@ const startServer = async () => {
 
     const app = express();
 
+    // Build allowed origins list from env vars
+    const allowedOrigins = [
+      process.env.CLIENT_URL,
+      process.env.ADMIN_URL,
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://localhost:5175',
+    ].filter(Boolean); // remove undefined/empty entries
+
     app.use(cors({
-      origin: [
-        process.env.CLIENT_URL || 'https://vedant-portfolio-ooq5y2f3k-vedantsonawane66-4937s-projects.vercel.app',
-        process.env.ADMIN_URL || 'vedant-portfolio-jbti-nzpepmnfh-vedantsonawane66-4937s-projects.vercel.app'
-      ],
+      origin: function (origin, callback) {
+        // allow requests with no origin (e.g. mobile apps, curl, Postman)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+          return callback(null, true);
+        }
+        return callback(new Error(`CORS policy: origin ${origin} not allowed`));
+      },
       credentials: true
     }));
     app.use(express.json());
