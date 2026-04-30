@@ -90,8 +90,10 @@ export const submitContact = async (req, res) => {
       `
     };
 
+    // Only send notification to yourself — Resend free plan cannot
+    // send auto-replies to visitor emails without a verified domain.
+    // To enable auto-replies: verify a domain at resend.com/domains
     sendEmailBackground(toMe, 'Notification email');
-    sendEmailBackground(autoReply, `Auto-reply to ${email}`);
 
     console.log('📨 ===== END =====\n');
 
