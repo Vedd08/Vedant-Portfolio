@@ -19,22 +19,28 @@ const startServer = async () => {
 
     const app = express();
 
-    // Build allowed origins list from env vars
+    // Allowed origins: specific production URLs + all *.vercel.app preview URLs + localhost
     const allowedOrigins = [
       process.env.CLIENT_URL,
       process.env.ADMIN_URL,
       'http://localhost:5173',
       'http://localhost:5174',
       'http://localhost:5175',
-    ].filter(Boolean); // remove undefined/empty entries
+    ].filter(Boolean);
+
+    // Regex to allow ANY Vercel preview/production subdomain
+    const vercelRegex = /^https:\/\/.*\.vercel\.app$/;
 
     app.use(cors({
       origin: function (origin, callback) {
-        // allow requests with no origin (e.g. mobile apps, curl, Postman)
+        // Allow requests with no origin (curl, Postman, mobile apps)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
-          return callback(null, true);
-        }
+        // Allow any *.vercel.app URL (covers preview deployments)
+        if (vercelRegex.test(origin)) return callback(null, true);
+        // Allow explicitly listed origins
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        // Block everything else
+        console.warn(`CORS blocked: ${origin}`);
         return callback(new Error(`CORS policy: origin ${origin} not allowed`));
       },
       credentials: true
