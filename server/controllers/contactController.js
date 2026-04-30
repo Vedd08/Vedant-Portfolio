@@ -1,28 +1,24 @@
 import Contact from "../models/Contact.js";
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-// Use port 587 (TLS/STARTTLS) — Render blocks port 465 (SSL)
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,       // false = STARTTLS (required for port 587)
-  requireTLS: true,    // force upgrade to TLS
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  connectionTimeout: 10000,  // 10 seconds
-  greetingTimeout: 10000,
-  socketTimeout: 10000
-});
+// Resend uses HTTPS (not SMTP) — works on Render free tier
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Send email in background — don't block the HTTP response
 const sendEmailBackground = async (mailOptions, label) => {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn(`⚠️ RESEND_API_KEY not set — skipping ${label}`);
+    return;
+  }
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ ${label} sent! Message ID:`, info.messageId);
+    const { data, error } = await resend.emails.send(mailOptions);
+    if (error) {
+      console.error(`❌ ${label} failed:`, error.message);
+    } else {
+      console.log(`✅ ${label} sent! ID:`, data.id);
+    }
   } catch (err) {
-    console.error(`❌ ${label} failed:`, err.message);
+    console.error(`❌ ${label} error:`, err.message);
   }
 };
 
@@ -59,9 +55,13 @@ export const submitContact = async (req, res) => {
     });
 
     // Send emails in background (after response is already sent)
+    // Resend free plan: must use 'onboarding@resend.dev' as sender
+    // (or your own verified domain if you add one)
+    const fromAddress = 'Vedant Portfolio <onboarding@resend.dev>';
+
     const toMe = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_TO,
+      from: fromAddress,
+      to: [process.env.EMAIL_TO || process.env.EMAIL_USER],
       subject: `📬 New Contact: ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
@@ -78,8 +78,8 @@ export const submitContact = async (req, res) => {
     };
 
     const autoReply = {
-      from: process.env.EMAIL_USER,
-      to: email,
+      from: fromAddress,
+      to: [email],
       subject: 'Thank you for contacting me!',
       text: `Hi ${name},\n\nThank you for reaching out! I have received your message and will get back to you as soon as possible.\n\nBest regards,\nVedant Sonawane`,
       html: `
